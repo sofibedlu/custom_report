@@ -1,0 +1,41 @@
+/* .my-custome-table thead {
+    background-color: #ccbb21 !important;
+} */
+
+/* .my-custome-table tfoot th {
+    border: 1px solid black !important;
+} */
+
+.my-custome-table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.my-custome-table th,
+.my-custome-table td {
+    border: 1px solid black !important;
+}
+
+.my-custome-table thead th {
+    background-color: #4da1f0 !important;
+}
+
+.my-custome-table tfoot th,
+.my-custome-table tfoot td {
+    border-top: 2px solid black !important;
+    border-bottom: 2px solid black !important;
+}
+
+
+.total-sales-table {
+    border-collapse: collapse;
+    margin-top: 5px;
+    float: right;
+}
+
+.total-sales-table th,
+.total-sales-table td {
+    border: 1px solid black !important;
+    padding: 8px;
+    text-align: right;
+}

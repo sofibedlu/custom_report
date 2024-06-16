@@ -1,0 +1,73 @@
+<odoo>
+    <template id="report_sales_details">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <table class="table table-bordered my-custome-table">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>Date</th>
+                                <th>Reference</th>
+                                <th>Customer</th>
+                                <th>Product</th>
+                                <th>Quantity</th>
+                                <th>Unit Price</th>
+                                <th>Sub Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-set="total_sales" t-value="0"/>
+                            <t t-foreach="orders_lines" t-as="line">
+                                <tr>
+                                    <td><t t-esc="line.order_id.date_order.date()"/></td>
+                                    <td><t t-esc="line.order_id.name"/></td>
+                                    <td><t t-esc="line.order_id.partner_id.name"/></td>
+                                    <td><t t-esc="line.product_id.name"/></td>
+                                    <td><t t-esc="line.product_uom_qty"/></td>
+                                    <td><t t-esc="line.price_unit"/></td>
+                                    <td>
+                                        <t t-esc="line.price_subtotal"/>
+                                        <t t-set="total_sales" t-value="total_sales + line.price_subtotal"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                        <!--<tfoot>
+                            <tr>
+                                <th colspan="6" style="text-align:right;">Total Sales</th>
+                                <th><t t-esc="total_sales"/></th>
+                            </tr>
+                        </tfoot>-->
+                    </table>
+                    <table class="total-sales-table">
+                        <tr>
+                            <td>Total Sales</td>
+                            <td><t t-esc="total_sales"/></td>
+                        </tr>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+
+    <record id="sales_report" model="ir.actions.report">
+        <field name="name">Sales Report</field>
+        <field name="model">sales.report.wizard</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">custom_sales_report.report_sales_details</field>
+        <field name="report_file">custom_sales_report.report_sales_details</field>
+        <field name="print_report_name">'Sales Report'</field>
+    </record>
+
+    
+    <record id="report_sales_details_xlsx" model="ir.actions.report">
+        <field name="name">Sales Report Excel</field>
+        <field name="model">sales.report.wizard</field>
+        <field name="report_type">xlsx</field>
+        <field name="report_name">custom_sales_report.report_sales_details_xlsx</field>
+        <field name="report_file">custom_sales_report.report_sales_details_xlsx</field>
+        <field name="binding_model_id" ref="model_sales_report_wizard"/>
+        <field name="binding_type">report</field>
+    </record>
+    
+</odoo>
